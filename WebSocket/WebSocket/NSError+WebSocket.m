@@ -10,6 +10,10 @@
 
 #define WSErrorDomain @"com.fantasy.websocket"
 
+#define errorLocalDescripitons @{ \
+    @(2133) : @"Server specified Sec-WebSocket-Protocol that wasn't requested", \
+}
+
 @implementation NSError (WebSocket)
 
 + (NSDictionary *)userInfoWithCode:(NSInteger)code
@@ -33,7 +37,16 @@
 
 + (NSDictionary *)userInfoWithHttpCode:(NSInteger)code
 {
-    return @{NSLocalizedDescriptionKey:@"未知错误"};
+    return @{NSLocalizedDescriptionKey:[self localDescripitonWithCode:code]
+             };
+}
+
++ (NSString *)localDescripitonWithCode:(NSInteger)code {
+    NSString *localDescrpition = [errorLocalDescripitons objectForKey:@(code)];
+    if (localDescrpition == nil) {
+        localDescrpition = @"未知错误";
+    }
+    return localDescrpition;
 }
 
 @end

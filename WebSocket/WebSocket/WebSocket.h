@@ -23,8 +23,23 @@ typedef NS_ENUM(NSUInteger, WSConnectState) {
 
 @property (nonatomic, assign) WSConnectState connectState;
 @property (nonatomic,readonly) CFHTTPMessageRef httpHeaders;
-@property (nonatomic, strong) NSURL *url;
+@property (nonatomic, strong, readonly) NSURL *url;
 
-- (instancetype) init;
+- (instancetype) init NS_UNAVAILABLE;
+
+- (instancetype) initWithURL:(NSURL *)url;
+
+- (instancetype) initWithURL:(NSURL *)url protocols:(NSArray *)protocols;
+
+- (instancetype) initWithURL:(NSURL *)url protocols:(NSArray *)protocols allowsUntrustedSSLCertificates:(BOOL)allowsUntrustedSSLCertificates;
+
+- (instancetype) initWithURLRequest:(NSURLRequest *)request;
+
+- (instancetype) initWithURLRequest:(NSURLRequest *)request protocols:(NSArray *)protocols;
+
+- (instancetype) initWithURLRequest:(NSURLRequest *)request protocols:(NSArray *)protocols allowsUntrustedSSLCertificates:(BOOL)allowsUntrustedSSLCertificates;
+
+- (void) open;
+- (void) close;
 
 @end

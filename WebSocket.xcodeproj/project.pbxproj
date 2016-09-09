@@ -20,6 +20,8 @@
 		180C19191D7F0B3E00F4DC17 /* NSError+WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 180C19181D7F0B3E00F4DC17 /* NSError+WebSocket.m */; };
 		180C191C1D7F2A3700F4DC17 /* NSString+WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 180C191B1D7F2A3700F4DC17 /* NSString+WebSocket.m */; };
 		180C191F1D7F2F9400F4DC17 /* NSURL+WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 180C191E1D7F2F9400F4DC17 /* NSURL+WebSocket.m */; };
+		188B231F1D82505F000058FC /* NSURLRequest+Websocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B231E1D82505F000058FC /* NSURLRequest+Websocket.m */; };
+		188B23221D825756000058FC /* NSRunLoop+Websocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B23211D825756000058FC /* NSRunLoop+Websocket.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,10 @@
 		180C191B1D7F2A3700F4DC17 /* NSString+WebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WebSocket.m"; sourceTree = "<group>"; };
 		180C191D1D7F2F9400F4DC17 /* NSURL+WebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+WebSocket.h"; sourceTree = "<group>"; };
 		180C191E1D7F2F9400F4DC17 /* NSURL+WebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WebSocket.m"; sourceTree = "<group>"; };
+		188B231D1D82505F000058FC /* NSURLRequest+Websocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+Websocket.h"; sourceTree = "<group>"; };
+		188B231E1D82505F000058FC /* NSURLRequest+Websocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+Websocket.m"; sourceTree = "<group>"; };
+		188B23201D825756000058FC /* NSRunLoop+Websocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRunLoop+Websocket.h"; sourceTree = "<group>"; };
+		188B23211D825756000058FC /* NSRunLoop+Websocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRunLoop+Websocket.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +173,10 @@
 				180C191B1D7F2A3700F4DC17 /* NSString+WebSocket.m */,
 				180C191D1D7F2F9400F4DC17 /* NSURL+WebSocket.h */,
 				180C191E1D7F2F9400F4DC17 /* NSURL+WebSocket.m */,
+				188B231D1D82505F000058FC /* NSURLRequest+Websocket.h */,
+				188B231E1D82505F000058FC /* NSURLRequest+Websocket.m */,
+				188B23201D825756000058FC /* NSRunLoop+Websocket.h */,
+				188B23211D825756000058FC /* NSRunLoop+Websocket.m */,
 			);
 			path = WebSocket;
 			sourceTree = "<group>";
@@ -308,6 +318,8 @@
 				180C191C1D7F2A3700F4DC17 /* NSString+WebSocket.m in Sources */,
 				180C18E81D7F09A000F4DC17 /* WebSocket.xcdatamodeld in Sources */,
 				180C18DF1D7F09A000F4DC17 /* AppDelegate.m in Sources */,
+				188B231F1D82505F000058FC /* NSURLRequest+Websocket.m in Sources */,
+				188B23221D825756000058FC /* NSRunLoop+Websocket.m in Sources */,
 				180C18DC1D7F09A000F4DC17 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -532,6 +544,7 @@
 				180C19091D7F09A000F4DC17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		180C190A1D7F09A000F4DC17 /* Build configuration list for PBXNativeTarget "WebSocketTests" */ = {
 			isa = XCConfigurationList;
@@ -540,6 +553,7 @@
 				180C190C1D7F09A000F4DC17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		180C190D1D7F09A000F4DC17 /* Build configuration list for PBXNativeTarget "WebSocketUITests" */ = {
 			isa = XCConfigurationList;
@@ -548,6 +562,7 @@
 				180C190F1D7F09A000F4DC17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
