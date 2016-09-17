@@ -34,4 +34,16 @@ static NSString *newSHA1String(const char *bytes, size_t length) {
     return newSHA1String(self.UTF8String, self.length);
 }
 
+- (NSString *)wsBase64EncodeString {
+    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    if ([data respondsToSelector:@selector(base64EncodedStringWithOptions:)]) {
+        return [data base64EncodedStringWithOptions:0];
+    }
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    return [data base64Encoding];
+#pragma clang diagnostic pop
+}
+
 @end

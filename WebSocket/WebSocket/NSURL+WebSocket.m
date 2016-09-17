@@ -7,6 +7,7 @@
 //
 
 #import "NSURL+WebSocket.h"
+#import "NSString+WebSocket.h"
 
 @implementation NSURL (WebSocket)
 
@@ -29,6 +30,14 @@
     } else {
         return [NSString stringWithFormat:@"%@://%@", scheme, self.host];
     }
+}
+
+- (NSString *) AuthorizationHeader {
+    if (self.user == nil || self.user.length <= 0 || self.password == nil || self.password.length <= 0) {
+        return nil;
+    }
+    NSString *authorization = [NSString stringWithFormat:@"%@:%@", self.user, self.password];
+    return [NSString stringWithFormat:@"Basic %@", [authorization wsBase64EncodeString]];
 }
 
 @end

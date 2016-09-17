@@ -16,17 +16,12 @@
 #define WebSocketVersion 13
 #define CRLFCRLFBytes {'\r', '\n', '\r', '\n'};
 
-#define WSWebSocketGUID @"258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
+//#define WSWebSocketGUID @"258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
 
 @interface WebSocket ()
 #pragma mark --Init API Params
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) NSURLRequest *urlRequest;
-//@property (nonatomic, assign) BOOL allowsUntrustedSSLCertificates;
-//@property (nonatomic, strong) NSArray *requestedProtocols;
-//@property (nonatomic, assign) BOOL secure;
-
-@property (nonatomic, strong) NSString *secKey;
 @property (nonatomic, assign) BOOL didFail;
 
 @end
@@ -47,7 +42,6 @@ static inline void SRFastLog(NSString *format, ...)  {
 @implementation WebSocket {
     NSArray *_requestedProtocols;
     BOOL _allowsUntrustedSSLCertificates;
-    BOOL _secure;
     BOOL _consumerStopped;
     
     //
@@ -142,9 +136,9 @@ static inline void SRFastLog(NSString *format, ...)  {
     NSString *scheme = _url.scheme.lowercaseString;
     assert([scheme isEqualToString:@"ws"] || [scheme isEqualToString:@"http"] || [scheme isEqualToString:@"wss"] || [scheme isEqualToString:@"https"]);
     
-    if ([scheme isEqualToString:@"wss"] || [scheme isEqualToString:@"https"]) {
-        _secure = YES;
-    }
+//    if ([scheme isEqualToString:@"wss"] || [scheme isEqualToString:@"https"]) {
+//        _secure = YES;
+//    }
     
     _connectState = WS_CONNECTING;
     _consumerStopped = YES;
@@ -170,7 +164,7 @@ static inline void SRFastLog(NSString *format, ...)  {
     assert(_url.port.unsignedIntValue <= UINT32_MAX);
     uint32_t port = _url.port.unsignedIntValue;
     if (port == 0) {
-        if (!_secure) {
+        if (!_urlRequest.security) {
             port = 80;
         } else {
             port = 443;
@@ -215,7 +209,7 @@ static inline void SRFastLog(NSString *format, ...)  {
 
 - (void)_updateSecureStreamOptions;
 {
-    if (_secure) {
+    if (self.urlRequest.security) {
         NSMutableDictionary *SSLOptions = [[NSMutableDictionary alloc] init];
         
         [_outputStream setProperty:(__bridge id)kCFStreamSocketSecurityLevelNegotiatedSSL forKey:(__bridge id)kCFStreamPropertySocketSecurityLevel];
@@ -255,33 +249,19 @@ static inline void SRFastLog(NSString *format, ...)  {
     [_scheduledRunloops removeObject:@[aRunLoop, mode]];
 }
 
-
 - (void) close {
     
 }
 
 - (void) didConnect {
-    /**
-     *  websocket链接链接.这里主要工作是组装完整的http请求数据结构.然后通过socket方式同服务器交互。
-     *  GET /chat HTTP/1.1
-     *  Host: server.example.com
-     *  Upgrade: websocket
-     *  Connection: Upgrade
-     *  Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
-     *  Origin: http://example.com
-     *  Sec-WebSocket-Protocol: chat, superchat
-     *  Sec-WebSocket-Version: 13
-     */
+    NSData *data = [self.urlRequest webSocketRequestData:WebSocketVersion
+                                                 cookies:nil
+                                      requestedProtocols:nil];
+    //写数据到服务器
+    //读取响应数据
 }
 
 - (void) connectFinish {
-    /**
-     *  解析http请求的状况:1.响应判断。2.数据合法性检查。3.支持的协议合法性解析。
-     *  Upgrade: websocket
-     *  Connection: Upgrade
-     *  Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
-     *  Sec-WebSocket-Protocol: chat
-     */
     NSInteger responseCode = CFHTTPMessageGetResponseStatusCode(self.httpHeaders);
     
     if (responseCode >= 400) {
@@ -289,50 +269,25 @@ static inline void SRFastLog(NSString *format, ...)  {
         return;
     }
     
-    if ([self socketIsValidate:self.httpHeaders]) {
+    if ([self.urlRequest socketIsValidateResponse:self.httpHeaders]) {
         NSLog(@"非法socket链接");
         return;
     }
     
-    if (![self webSocketProtocol:self.httpHeaders]) {
-        NSLog(@"指定协议没有找到");
+    if (![self.urlRequest hasValidateWebSocketProtocol:self.httpHeaders
+                                   requestedProtocols:_requestedProtocols]) {
+        [self failedWithCode:2133];
         return;
     }
+    
+    _protocol = [self.urlRequest negotiatedProtocol:self.httpHeaders
+                                 requestedProtocols:_requestedProtocols];
     
     self.connectState = WS_OPEN;
     if (!self.didFail) {
         NSLog(@"开始读取数据");
     }
     NSLog(@"链接成功事件");
-}
-
-- (BOOL) webSocketProtocol:(CFHTTPMessageRef)message
-{
-    NSString *negotiatedProtocol = CFBridgingRelease(CFHTTPMessageCopyHeaderFieldValue(message, CFSTR("Sec-WebSocket-Protocol")));
-    if (negotiatedProtocol) {
-        // Make sure we requested the protocol
-        if ([_requestedProtocols indexOfObject:negotiatedProtocol] == NSNotFound) {
-            [self failedWithCode:2133];
-            return NO;
-        }
-        
-        _protocol = negotiatedProtocol;
-        return YES;
-    }
-    
-    return NO;
-}
-
-- (BOOL) socketIsValidate:(CFHTTPMessageRef)message {
-    NSString *acceptHeader = CFBridgingRelease(CFHTTPMessageCopyHeaderFieldValue(message, CFSTR("Sec-WebSocket-Accept")));
-    
-    if (acceptHeader == nil) {
-        return NO;
-    }
-    
-    NSString *concattedString = [self.secKey stringByAppendingString:WSWebSocketGUID];
-    NSString *expectedAccept = [concattedString websocketSHA1Base64Encoding];
-    return [acceptHeader isEqualToString:expectedAccept];
 }
 
 - (void) failedWithCode:(NSInteger)code
