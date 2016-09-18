@@ -22,6 +22,12 @@
 		180C191F1D7F2F9400F4DC17 /* NSURL+WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 180C191E1D7F2F9400F4DC17 /* NSURL+WebSocket.m */; };
 		188B231F1D82505F000058FC /* NSURLRequest+Websocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B231E1D82505F000058FC /* NSURLRequest+Websocket.m */; };
 		188B23221D825756000058FC /* NSRunLoop+Websocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B23211D825756000058FC /* NSRunLoop+Websocket.m */; };
+		18B024521D894B0A004DAEC1 /* WSCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B024511D894B0A004DAEC1 /* WSCommon.m */; };
+		18B024581D894EA0004DAEC1 /* WebSocket+HeaderFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B024571D894EA0004DAEC1 /* WebSocket+HeaderFields.m */; };
+		18BED98E1D86BA3A00F9A815 /* NSInputStream+Websocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BED98D1D86BA3A00F9A815 /* NSInputStream+Websocket.m */; };
+		18BED9911D86BA4600F9A815 /* NSOutputStream+Websocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BED9901D86BA4600F9A815 /* NSOutputStream+Websocket.m */; };
+		18BED9941D86BC6100F9A815 /* WSInputManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BED9931D86BC6100F9A815 /* WSInputManager.m */; };
+		18BED9971D86BC6F00F9A815 /* WSOutputManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BED9961D86BC6F00F9A815 /* WSOutputManager.m */; };
 		9AABB3831D89B4A3004A1416 /* NSData+WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AABB3821D89B4A3004A1416 /* NSData+WebSocket.m */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +78,18 @@
 		188B231E1D82505F000058FC /* NSURLRequest+Websocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+Websocket.m"; sourceTree = "<group>"; };
 		188B23201D825756000058FC /* NSRunLoop+Websocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRunLoop+Websocket.h"; sourceTree = "<group>"; };
 		188B23211D825756000058FC /* NSRunLoop+Websocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRunLoop+Websocket.m"; sourceTree = "<group>"; };
+		18B024501D894B0A004DAEC1 /* WSCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCommon.h; sourceTree = "<group>"; };
+		18B024511D894B0A004DAEC1 /* WSCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCommon.m; sourceTree = "<group>"; };
+		18B024561D894EA0004DAEC1 /* WebSocket+HeaderFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WebSocket+HeaderFields.h"; sourceTree = "<group>"; };
+		18B024571D894EA0004DAEC1 /* WebSocket+HeaderFields.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WebSocket+HeaderFields.m"; sourceTree = "<group>"; };
+		18BED98C1D86BA3900F9A815 /* NSInputStream+Websocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSInputStream+Websocket.h"; sourceTree = "<group>"; };
+		18BED98D1D86BA3A00F9A815 /* NSInputStream+Websocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSInputStream+Websocket.m"; sourceTree = "<group>"; };
+		18BED98F1D86BA4600F9A815 /* NSOutputStream+Websocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOutputStream+Websocket.h"; sourceTree = "<group>"; };
+		18BED9901D86BA4600F9A815 /* NSOutputStream+Websocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOutputStream+Websocket.m"; sourceTree = "<group>"; };
+		18BED9921D86BC6100F9A815 /* WSInputManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSInputManager.h; sourceTree = "<group>"; };
+		18BED9931D86BC6100F9A815 /* WSInputManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSInputManager.m; sourceTree = "<group>"; };
+		18BED9951D86BC6F00F9A815 /* WSOutputManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSOutputManager.h; sourceTree = "<group>"; };
+		18BED9961D86BC6F00F9A815 /* WSOutputManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSOutputManager.m; sourceTree = "<group>"; };
 		9AABB3811D89B4A3004A1416 /* NSData+WebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+WebSocket.h"; sourceTree = "<group>"; };
 		9AABB3821D89B4A3004A1416 /* NSData+WebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+WebSocket.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -182,6 +200,18 @@
 				188B23211D825756000058FC /* NSRunLoop+Websocket.m */,
 				9AABB3811D89B4A3004A1416 /* NSData+WebSocket.h */,
 				9AABB3821D89B4A3004A1416 /* NSData+WebSocket.m */,
+				18BED98C1D86BA3900F9A815 /* NSInputStream+Websocket.h */,
+				18BED98D1D86BA3A00F9A815 /* NSInputStream+Websocket.m */,
+				18BED98F1D86BA4600F9A815 /* NSOutputStream+Websocket.h */,
+				18BED9901D86BA4600F9A815 /* NSOutputStream+Websocket.m */,
+				18BED9921D86BC6100F9A815 /* WSInputManager.h */,
+				18BED9931D86BC6100F9A815 /* WSInputManager.m */,
+				18BED9951D86BC6F00F9A815 /* WSOutputManager.h */,
+				18BED9961D86BC6F00F9A815 /* WSOutputManager.m */,
+				18B024501D894B0A004DAEC1 /* WSCommon.h */,
+				18B024511D894B0A004DAEC1 /* WSCommon.m */,
+				18B024561D894EA0004DAEC1 /* WebSocket+HeaderFields.h */,
+				18B024571D894EA0004DAEC1 /* WebSocket+HeaderFields.m */,
 			);
 			path = WebSocket;
 			sourceTree = "<group>";
@@ -317,14 +347,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				180C18E21D7F09A000F4DC17 /* ViewController.m in Sources */,
+				18BED9941D86BC6100F9A815 /* WSInputManager.m in Sources */,
+				18BED9911D86BA4600F9A815 /* NSOutputStream+Websocket.m in Sources */,
 				180C19191D7F0B3E00F4DC17 /* NSError+WebSocket.m in Sources */,
 				180C191F1D7F2F9400F4DC17 /* NSURL+WebSocket.m in Sources */,
 				180C19161D7F0B0B00F4DC17 /* WebSocket.m in Sources */,
 				180C191C1D7F2A3700F4DC17 /* NSString+WebSocket.m in Sources */,
 				180C18E81D7F09A000F4DC17 /* WebSocket.xcdatamodeld in Sources */,
+				18B024521D894B0A004DAEC1 /* WSCommon.m in Sources */,
+				18B024581D894EA0004DAEC1 /* WebSocket+HeaderFields.m in Sources */,
 				180C18DF1D7F09A000F4DC17 /* AppDelegate.m in Sources */,
 				188B231F1D82505F000058FC /* NSURLRequest+Websocket.m in Sources */,
 				188B23221D825756000058FC /* NSRunLoop+Websocket.m in Sources */,
+				18BED98E1D86BA3A00F9A815 /* NSInputStream+Websocket.m in Sources */,
+				18BED9971D86BC6F00F9A815 /* WSOutputManager.m in Sources */,
 				180C18DC1D7F09A000F4DC17 /* main.m in Sources */,
 				9AABB3831D89B4A3004A1416 /* NSData+WebSocket.m in Sources */,
 			);

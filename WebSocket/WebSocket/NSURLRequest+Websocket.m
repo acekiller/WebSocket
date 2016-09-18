@@ -10,11 +10,10 @@
 #import "NSURL+WebSocket.h"
 #import "NSData+WebSocket.h"
 #import "NSString+WebSocket.h"
+#import "WSCommon.h"
 #import <objc/runtime.h>
 
 NSString * const wsSSLCertificatesKey = @"wsSSLCertificates";
-
-#define WSWebSocketGUID @"258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
 
 @implementation NSURLRequest (Websocket)
 

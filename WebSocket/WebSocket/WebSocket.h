@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WSCommon.h"
 
 typedef NS_ENUM(NSUInteger, WSConnectState) {
     WS_CLOSED       = 0,
@@ -43,3 +44,5 @@ typedef NS_ENUM(NSUInteger, WSConnectState) {
 - (void) close;
 
 @end
+
+#import "WebSocket+HeaderFields.h"

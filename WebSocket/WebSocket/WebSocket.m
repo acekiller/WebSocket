@@ -7,37 +7,27 @@
 //
 
 #import "WebSocket.h"
+#import "WSCommon.h"
 #import "NSError+WebSocket.h"
-#import "NSString+WebSocket.h"
 #import "NSURLRequest+Websocket.h"
 #import "NSRunLoop+Websocket.h"
-
-#define CRLFCRLF [[NSData alloc] initWithBytes:"\r\n\r\n" length:4];
-#define WebSocketVersion 13
-#define CRLFCRLFBytes {'\r', '\n', '\r', '\n'};
-
-//#define WSWebSocketGUID @"258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
+#import "WSInputManager.h"
+#import "WSOutputManager.h"
 
 @interface WebSocket ()
+<
+    WSInputManagerDelegate,
+    WSOutputManagerDelegate
+>
 #pragma mark --Init API Params
 @property (nonatomic, strong) NSURL *url;
-@property (nonatomic, strong) NSURLRequest *urlRequest;
+@property (nonatomic, strong) NSMutableURLRequest *urlRequest;
 @property (nonatomic, assign) BOOL didFail;
 
-@end
+@property (nonatomic, strong) WSInputManager *inputManager;
+@property (nonatomic, strong) WSOutputManager *outputNanager;
 
-static inline void SRFastLog(NSString *format, ...)  {
-#ifdef SR_ENABLE_LOG
-    __block va_list arg_list;
-    va_start (arg_list, format);
-    
-    NSString *formattedString = [[NSString alloc] initWithFormat:format arguments:arg_list];
-    
-    va_end(arg_list);
-    
-    NSLog(@"[SR] %@", formattedString);
-#endif
-}
+@end
 
 @implementation WebSocket {
     NSArray *_requestedProtocols;
@@ -50,12 +40,7 @@ static inline void SRFastLog(NSString *format, ...)  {
     
     //socket read & write stream.
     NSInputStream *_inputStream;
-    NSMutableData *_readBuffer;
-    NSUInteger _readBufferOffset;
     NSOutputStream *_outputStream;
-    NSMutableData *_outputBuffer;
-    NSUInteger _outputBufferOffset;
-    
     NSString *_protocol;    //Websocket 通信协议
     
     NSMutableSet *_scheduledRunloops;
@@ -72,6 +57,9 @@ static inline void SRFastLog(NSString *format, ...)  {
     
     [_inputStream close];
     [_outputStream close];
+    
+    _inputStream = nil;
+    _outputStream = nil;
     
     if (_workQueue) {
         _workQueue = NULL;
@@ -122,7 +110,7 @@ static inline void SRFastLog(NSString *format, ...)  {
     if (self) {
         assert(request.URL);
         self.url = request.URL;
-        self.urlRequest = request;
+        self.urlRequest = [[NSMutableURLRequest alloc] initWithURL:request.URL];
         _allowsUntrustedSSLCertificates = allowsUntrustedSSLCertificates;
         _requestedProtocols = [protocols copy];
         [self wsInitCommonData];
@@ -150,8 +138,8 @@ static inline void SRFastLog(NSString *format, ...)  {
                                 NULL);
     _mainDispatchQueue = dispatch_get_main_queue();
     
-    _readBuffer = [[NSMutableData alloc] init];
-    _outputBuffer = [[NSMutableData alloc] init];
+    //_readBuffer = [[NSMutableData alloc] init];
+    //_outputBuffer = [[NSMutableData alloc] init];
     
 //    继续初始化对象...
     _scheduledRunloops = [[NSMutableSet alloc] init];
@@ -180,8 +168,8 @@ static inline void SRFastLog(NSString *format, ...)  {
     _outputStream = CFBridgingRelease(writeStream);
     _inputStream = CFBridgingRelease(readStream);
     
-    _inputStream.delegate = self;
-    _outputStream.delegate = self;
+    self.outputNanager = [[WSOutputManager alloc] initWithQueue:_workQueue delegate:self];
+    self.inputManager = [[WSInputManager alloc] initWithQueue:_workQueue delegate:self];
 }
 
 #pragma mark -- Open & close Socket communication
@@ -261,6 +249,9 @@ static inline void SRFastLog(NSString *format, ...)  {
     //读取响应数据
 }
 
+/*
+ * 与websocket链接响应数据合法性检查。
+ */
 - (void) connectFinish {
     NSInteger responseCode = CFHTTPMessageGetResponseStatusCode(self.httpHeaders);
     
